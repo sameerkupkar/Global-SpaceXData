@@ -28,13 +28,30 @@ class SpaceViewController: UIViewController {
         spaceDataViewModel.apiToGetSpaceData { [weak self] in
             self?.spacesummaryArr = self?.spaceDataViewModel.summaryModel ?? [SummaryModel]()
 
-            
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
             }
             
         }
         
+    }
+    
+    /// Method to go to details controller
+    /// - Parameter sender: Any
+    @objc func actionGoToDetailsController(_ sender: UIButton) {
+        
+//        let popOverVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LaunchDetailsViewController") as! LaunchDetailsViewController
+//        popOverVC.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+//        popOverVC.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+//        popOverVC.spaceSummaryDetails = spacesummaryArr[sender.tag]
+//        self.navigationController?.pushViewController(popOverVC, animated: true)
+//
+          let mainstoryboard:UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                let newViewcontroller = mainstoryboard.instantiateViewController(withIdentifier: "LaunchDetailsViewController") as! LaunchDetailsViewController
+                 newViewcontroller.spaceSummaryDetails = spacesummaryArr[sender.tag]
+                let newFrontController = UINavigationController.init(rootViewController: newViewcontroller)
+                 
+                self.present(newFrontController, animated: true, completion: nil)
     }
 }
 
@@ -65,20 +82,11 @@ extension SpaceViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         cell.configureCell(dataInstance: spacesummaryArr[indexPath.row])
+        cell.btnViewDetails.tag = indexPath.row
+        cell.btnViewDetails.addTarget(self, action: #selector(actionGoToDetailsController(_:)), for: .touchUpInside)
         return cell
         
     }
 
-    private func tableView(tableView: UITableView, didHighlightRowAtIndexPath indexPath: NSIndexPath) {
-        if let cell = tableView.cellForRow(at: indexPath as IndexPath) {
-            cell.backgroundColor = .gray
-      }
-    }
-
-    private func tableView(tableView: UITableView, didUnhighlightRowAtIndexPath indexPath: NSIndexPath) {
-        if let cell = tableView.cellForRow(at: indexPath as IndexPath) {
-          cell.backgroundColor = .white
-      }
-    }
    
 }

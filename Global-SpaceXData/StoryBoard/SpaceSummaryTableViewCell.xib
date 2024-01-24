@@ -97,6 +97,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="cWm-p9-28K"/>
             <connections>
+                <outlet property="btnViewDetails" destination="kwn-4A-Jps" id="6ng-w5-VEx"/>
                 <outlet property="imgLaunch" destination="oVi-nd-rq8" id="kJE-77-Qil"/>
                 <outlet property="lblLaunchDate" destination="uZb-04-GHy" id="3yY-eV-AW9"/>
                 <outlet property="lblLaunchSiteName" destination="AeG-Ef-AwS" id="kfJ-i9-iA6"/>

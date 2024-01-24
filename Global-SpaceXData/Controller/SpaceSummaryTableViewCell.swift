@@ -18,7 +18,10 @@ class SpaceSummaryTableViewCell: UITableViewCell {
     @IBOutlet weak var lblLaunchSiteName: UILabel!
     @IBOutlet weak var lblLaunchDate: UILabel!
     @IBOutlet weak var lblRocketName: UILabel!
+    @IBOutlet weak var btnViewDetails: UIButton!
     
+    
+    // MARK: - View life cycle method -
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
