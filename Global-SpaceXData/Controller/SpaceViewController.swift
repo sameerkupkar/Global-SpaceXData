@@ -11,7 +11,7 @@ class SpaceViewController: UIViewController {
 
     // MARK: - IBoutlets -
     @IBOutlet weak var tableView: UITableView!
-    
+    @IBOutlet weak var indicatorLoader: UIActivityIndicatorView!
     // MARK: - Variable declarations -
     var spaceDataViewModel = SpaceDataViewModel()
     var spacesummaryArr = [SummaryModel]()
@@ -23,12 +23,16 @@ class SpaceViewController: UIViewController {
         // Do any additional setup after loading the view.
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.isHidden = true
+        indicatorLoader.startAnimating()
         tableView.register(UINib(nibName: "SpaceSummaryTableViewCell", bundle: .main), forCellReuseIdentifier: "spaceSummaryTableViewCell")
         
         spaceDataViewModel.apiToGetSpaceData { [weak self] in
             self?.spacesummaryArr = self?.spaceDataViewModel.summaryModel ?? [SummaryModel]()
 
             DispatchQueue.main.async {
+                self?.tableView.isHidden = false
+                self?.indicatorLoader.stopAnimating()
                 self?.tableView.reloadData()
             }
             
